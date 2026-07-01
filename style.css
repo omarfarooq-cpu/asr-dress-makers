@@ -744,13 +744,16 @@ body {
   color: #8e44ad;
   font-weight: bold;
   text-decoration: none;
-}
+}/* =========================
+   LUXURY SLIDER
+========================= */
 .slider-container {
-  height: 90vh;
   position: relative;
+  height: 90vh;
   overflow: hidden;
 }
 
+/* SLIDES */
 .slide {
   position: absolute;
   width: 100%;
@@ -758,16 +761,16 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.2s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transform: scale(1.1);
+  transition: opacity 1.2s ease, transform 1.5s ease;
 }
 
 .slide.active {
   opacity: 1;
+  transform: scale(1);
 }
 
+/* DARK OVERLAY */
 .slide::before {
   content: "";
   position: absolute;
@@ -776,21 +779,56 @@ body {
   background: rgba(0,0,0,0.45);
 }
 
+/* TEXT ANIMATION */
 .slide-text {
-  position: relative;
-  text-align: center;
+  position: absolute;
+  bottom: 22%;
+  left: 8%;
   color: white;
-  z-index: 2;
+  max-width: 500px;
+  animation: fadeUp 1.2s ease;
 }
 
 .slide-text h1 {
-  font-size: 45px;
+  font-size: 48px;
   margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 
 .slide-text p {
   font-size: 18px;
   opacity: 0.9;
+}
+
+/* BUTTON */
+.slide-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 22px;
+  background: gold;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.slide-btn:hover {
+  background: white;
+  color: black;
+}
+
+
+/* TEXT ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .badge {
   position: absolute;
@@ -799,12 +837,27 @@ body {
   border-radius: 20px;
   font-size: 12px;
 }
-.checkout-container {
-  padding: 120px 20px;
-  max-width: 1000px;
-  margin: auto;
+.checkout-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
 }
 
+.checkout-center button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: rgb(166, 89, 178);
+  color: white;
+  transition: 0.3s;
+}
+
+.checkout-center button:hover {
+  background: black;
+}
 #orderSummary {
   margin-bottom: 30px;
 }

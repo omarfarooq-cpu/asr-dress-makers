@@ -6,16 +6,25 @@
   <title>ASR Dress Makers | Luxury Boutique Studio</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    .slide-hero {
+      background-image: url('https://i.ibb.co/KYrykW7/slide-1.png');
+    }
     .slide-bridal {
-      background-image: url('https://images.unsplash.com/photo-1520975954732-9b5f4d7b1b3a');
+      background-image: url('https://i.ibb.co/m5jw670y/slide-2.png');
     }
 
     .slide-maxi {
-      background-image: url('https://images.unsplash.com/photo-1520975682031-a3a0c0d3c3b0');
+      background-image: url('https://i.ibb.co/MxvN4PC2/slide-3.png');
     }
 
     .slide-tailoring {
-      background-image: url('https://images.unsplash.com/photo-1520975922284-7d7c1b0a6c1f');
+      background-image: url('https://i.ibb.co/ksHG1DDb/slide-4.png');
+    }
+    .slide-party {
+      background-image: url('https://i.ibb.co/yB6C8P0F/slide-5.png');
+    }
+    .slide-kids {
+      background-image: url('https://i.ibb.co/v4tq7kkR/slide-6.png');
     }
   </style>
 </head>
@@ -46,29 +55,55 @@
 <!-- HERO VIDEO / PREMIUM BACKDROP -->
 <section class="slider-container">
 
-  <div class="slide active slide-bridal">
+  <!-- SLIDE 1: BRAND HERO -->
+  <div class="slide active slide-hero">
     <div class="slide-text">
-      <h1>Luxury Bridal Collection</h1>
-      <p>Designed for your perfect wedding look</p>
+      <h1>ASR Dress Makers</h1>
+      <p>Luxury Custom Tailoring Studio for Women</p>
     </div>
   </div>
 
+  <!-- SLIDE 2: BRIDAL -->
+  <div class="slide slide-bridal">
+    <div class="slide-text">
+      <h1>Luxury Bridal Collection</h1>
+      <p>Perfect Wedding Looks Designed Just for You</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: MAXI DRESSES -->
   <div class="slide slide-maxi">
     <div class="slide-text">
       <h1>Elegant Maxi Dresses</h1>
-      <p>Comfort meets premium fashion</p>
+      <p>Comfortable • Stylish • Everyday Premium Wear</p>
     </div>
   </div>
 
+  <!-- SLIDE 4: PARTY WEAR -->
+  <div class="slide slide-party">
+    <div class="slide-text">
+      <h1>Party Wear Collection</h1>
+      <p>Stand Out in Every Celebration</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: CUSTOM TAILORING -->
   <div class="slide slide-tailoring">
     <div class="slide-text">
-      <h1>Designer Tailoring</h1>
-      <p>Custom stitched perfection for every woman</p>
+      <h1>Custom Tailoring</h1>
+      <p>Perfect Fit for Every Body Type</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: KIDS & MATCHING -->
+  <div class="slide slide-kids">
+    <div class="slide-text">
+      <h1>Mother & Daughter Outfits</h1>
+      <p>Matching Styles for Special Moments</p>
     </div>
   </div>
 
 </section>
-
 <!-- FLOATING STATS -->
 <section class="stats">
   <div>✨ Premium Stitching</div>
@@ -122,18 +157,7 @@ function updateCartCount() {
 updateCartCount();
 </script>
 <script>
-let slides = document.querySelectorAll(".slide");
-let index = 0;
-
-function showSlide() {
-  slides.forEach(slide => slide.classList.remove("active"));
-  slides[index].classList.add("active");
-}
-
-setInterval(() => {
-  index = (index + 1) % slides.length;
-  showSlide();
-}, 5000);
+// slideshow handled in later script
 </script>
 <div id="cartDrawer" class="cart-drawer">
 
@@ -154,6 +178,29 @@ setInterval(() => {
 </div>
 
 <div id="overlay" onclick="toggleCart()"></div>
+<script>
+let slides = document.querySelectorAll(".slide");
+let current = 0;
 
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.remove("active");
+    if (i === index) {
+      slide.classList.add("active");
+    }
+  });
+}
+
+function nextSlide() {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}
+
+// auto rotate
+setInterval(nextSlide, 4500);
+
+// init
+showSlide(0);
+</script>
 </body>
 </html>
