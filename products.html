@@ -44,14 +44,15 @@
 <section id="productGrid" class="grid"></section>
 
 <!-- SCRIPTS -->
-<script src="data.js"></script>
-<script src="app.js"></script>
 
 <script>
   // cart count display
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   document.getElementById("cartCount").innerText = cart.length;
 </script>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>

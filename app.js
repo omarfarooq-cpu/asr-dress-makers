@@ -1,7 +1,7 @@
 const grid = document.getElementById("productGrid");
 
 function getBaseProducts() {
-  return typeof baseProducts !== "undefined" ? baseProducts : [];
+  return baseProducts || [];
 }
 
 function getAdminProducts() {
@@ -12,26 +12,6 @@ function getAllProducts() {
   return [...getBaseProducts(), ...getAdminProducts()];
 }
 
-// MAIN RENDER FUNCTION
-function renderProducts(list) {
-  grid.innerHTML = "";
-
-  list.forEach(p => {
-    grid.innerHTML += `
-      <div class="card" onclick="openProduct(${p.id})">
-
-        <img src="${p.image}" />
-
-        <h3>${p.name}</h3>
-        <p>${p.category}</p>
-        <p>₹${p.price}</p>
-
-      </div>
-    `;
-  });
-}
-
-// LOAD PRODUCTS
 function load(filter = "all") {
   let products = getAllProducts();
 
@@ -39,30 +19,26 @@ function load(filter = "all") {
     ? products
     : products.filter(p => p.category === filter);
 
-  renderProducts(filtered);
+  grid.innerHTML = "";
+
+  filtered.forEach(p => {
+    grid.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" />
+        <h3>${p.name}</h3>
+        <p>${p.category}</p>
+        <p>₹${p.price}</p>
+
+        <a href="product.html?id=${p.id}">
+          <button>View</button>
+        </a>
+      </div>
+    `;
+  });
 }
 
-// CATEGORY FILTER
 function filter(cat) {
   load(cat);
 }
 
-// SEARCH
-document.getElementById("searchInput").addEventListener("input", function(e) {
-  let value = e.target.value.toLowerCase();
-
-  let products = getAllProducts().filter(p =>
-    p.name.toLowerCase().includes(value) ||
-    p.category.toLowerCase().includes(value)
-  );
-
-  renderProducts(products);
-});
-
-// NAVIGATION FIX
-function openProduct(id) {
-  window.location.href = "product.html?id=" + id;
-}
-
-// INIT
 load();
