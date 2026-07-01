@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Product | ASR Dress Makers</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-page-actions {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="glass-header">
+  <div class="brand">
+    <img src="https://i.ibb.co/5X83DpvP/1782896746577.png" alt="ASR Logo" class="logo-img">
+    <div class="logo-text">ASR Dress Makers</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+</header>
+
+<!-- PRODUCT SECTION -->
+<section class="product-page">
+
+  <div id="productDetail" class="product-container"></div>
+  <div class="product-page-actions">
+    <p>Need custom fitting or design changes?</p>
+    <a href="services.html" class="btn-outline">
+      Book Tailoring Service
+    </a>
+  </div>
+</section>
+<select id="size" aria-label="Choose size">
+  <option>XS</option>
+  <option>S</option>
+  <option>M</option>
+  <option>L</option>
+  <option>XL</option>
+  <option>Custom Stitching</option>
+</select>
+</section>
+<button onclick="buyNow()" class="btn-glow">
+  Buy Now / Checkout
+</button>
+<script src="data.js"></script>
+<script src="product.js"></script>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  document.querySelector(".cart span").innerText = cart.length;
+</script>
+<script>
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let el = document.getElementById("cartCount");
+  if (el) el.innerText = cart.length;
+}
+
+updateCartCount();
+function addToCart() {
+  let size = document.getElementById("size")?.value || "Standard";
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.push({
+    ...product,
+    size,
+    qty: 1
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart!");
+}
+</script>
+</body>
+</html>

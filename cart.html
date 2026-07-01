@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="https://i.ibb.co/5X83DpvP/1782896746577.png" alt="ASR Logo" class="logo-img">
+    <div class="logo-text">ASR Dress Makers</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+</header>
+
+<h2 class="cart-title">Your Cart</h2>
+
+<div id="cartItems" class="cart-box"></div>
+
+<h2 id="total" class="total"></h2>
+
+
+<button onclick="goCheckout()" class="btn-glow">
+  Proceed to Checkout
+</button>
+<script src="cart.js"></script>
+<script>
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let el = document.getElementById("cartCount");
+  if (el) el.innerText = cart.length;
+}
+
+updateCartCount();
+function goCheckout() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    alert("Your cart is empty");
+    return;
+  }
+
+  window.location.href = "checkout.html";
+}
+</script>
+
+</body>
+</html>

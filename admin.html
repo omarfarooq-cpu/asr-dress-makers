@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width   , initial-scale=1.0">
+<head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login | ASR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="glass-header">
+  <div class="logo">ASR Dress Makers</div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+</header>
+<div id="loginPage" class="login-box">
+
+  <h1>ASR Admin Panel</h1>
+  <p>Secure Login</p>
+
+  <input id="pass" type="password" placeholder="Enter Password">
+
+  <button onclick="login()">Login</button>
+
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" hidden>
+  <header>
+    <div class="logo">ASR Admin Dashboard</div>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <h2>Manage Products</h2>
+
+<div class="dashboard-content hidden">
+<div class="admin-container">
+
+  <!-- ADD PRODUCT CARD -->
+  <div class="admin-card">
+    <h2>➕ Add Product</h2>
+
+    <input id="name" placeholder="Product name">
+    <input id="price" type="number" placeholder="Price">
+    <input id="image" placeholder="Image URL">
+    <input id="desc" placeholder="Description">
+
+    <label for="category">Category</label>
+    <select id="category">
+      <option>Bridal Collection</option>
+      <option>Maxis</option>
+      <option>Party Wear</option>
+      <option>Kurtis</option>
+      <option>Kids Wear</option>
+    </select>
+
+    <button onclick="addProduct()">Add Product</button>
+  </div>
+
+  <!-- LIVE PREVIEW -->
+  <div class="admin-card">
+    <h2>📦 Products</h2>
+    <div id="list"></div>
+  </div>
+
+</div>
+<div class="stats">
+  <div class="stat-card">Total Products: <span id="tp"></span></div>
+
+</div>
+<div class="admin-card">
+  <h2>📦 Orders</h2>
+  <div id="ordersList"></div>
+</div>
+<script src="admin.js"></script>
+
+<script>
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let el = document.getElementById("cartCount");
+  if (el) el.innerText = cart.length;
+}
+
+updateCartCount();
+</script>
+</body>
+</html>

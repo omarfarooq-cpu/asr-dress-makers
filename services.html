@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Tailoring Services | ASR Dress Makers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="glass-header">
+  <div class="brand">
+    <img src="https://i.ibb.co/5X83DpvP/1782896746577.png" alt="ASR Logo" class="logo-img">
+    <div class="logo-text">ASR Dress Makers</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+</header>
+<!-- HERO -->
+<section class="service-hero">
+  <h1>Premium Tailoring Services</h1>
+  <p>Custom Stitching • Alterations • Bridal Fittings • Design Customization</p>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="service-grid">
+
+  <div class="service-card">
+    <h3>Custom Stitching</h3>
+    <p>Perfect fit tailoring based on your measurements.</p>
+    <button onclick="book('Custom Stitching')">Book Now</button>
+  </div>
+
+  <div class="service-card">
+    <h3>Dress Alterations</h3>
+    <p>Resize and adjust your existing outfits.</p>
+    <button onclick="book('Dress Alterations')">Book Now</button>
+  </div>
+
+  <div class="service-card">
+    <h3>Bridal Fittings</h3>
+    <p>Luxury bridal fitting and finishing service.</p>
+    <button onclick="book('Bridal Fittings')">Book Now</button>
+  </div>
+
+  <div class="service-card">
+    <h3>Neck Design Customization</h3>
+    <p>Unique neckline designs for your outfits.</p>
+    <button onclick="book('Neck Design Customization')">Book Now</button>
+  </div>
+
+  <div class="service-card">
+    <h3>Sleeve Design Customization</h3>
+    <p>Stylish sleeve pattern customization.</p>
+    <button onclick="book('Sleeve Design Customization')">Book Now</button>
+  </div>
+
+  <div class="service-card">
+    <h3>Fabric Stitching</h3>
+    <p>We stitch your own fabric into premium outfits.</p>
+    <button onclick="book('Fabric Stitching')">Book Now</button>
+  </div>
+
+</section>
+
+<script>
+function book(service) {
+  let msg = "Hello ASR Dress Makers,%0AI want to book this service:%0A" + service;
+  window.open("https://wa.me/917092840069?text=" + msg);
+}
+</script>
+<script>
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let el = document.getElementById("cartCount");
+  if (el) el.innerText = cart.length;
+}
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>

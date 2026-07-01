@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Shop | ASR Dress Makers</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-title { text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">ASR Store</div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <div class="cart">
+    🛒 <span id="cartCount">0</span>
+  </div>
+</header>
+
+<!-- CATEGORY FILTER BAR -->
+<nav class="filter-nav">
+  <button onclick="filter('all')">All</button>
+  <button onclick="filter('Bridal Collection')">Bridal</button>
+  <button onclick="filter('Maxis')">Maxis</button>
+  <button onclick="filter('Party Wear')">Party Wear</button>
+  <button onclick="filter('Kurtis')">Kurtis</button>
+  <button onclick="filter('Kids Wear')">Kids</button>
+</nav>
+
+<!-- TITLE -->
+<h2 class="page-title">Our Collection</h2>
+
+<!-- PRODUCT GRID -->
+<section id="productGrid" class="grid"></section>
+
+<!-- SCRIPTS -->
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+<script>
+  // cart count display
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  document.getElementById("cartCount").innerText = cart.length;
+</script>
+
+</body>
+</html>

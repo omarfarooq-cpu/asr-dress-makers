@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+<head>
+  <title>ASR Dress Makers | Luxury Boutique Studio</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .slide-bridal {
+      background-image: url('https://images.unsplash.com/photo-1520975954732-9b5f4d7b1b3a');
+    }
+
+    .slide-maxi {
+      background-image: url('https://images.unsplash.com/photo-1520975682031-a3a0c0d3c3b0');
+    }
+
+    .slide-tailoring {
+      background-image: url('https://images.unsplash.com/photo-1520975922284-7d7c1b0a6c1f');
+    }
+  </style>
+</head>
+<body>
+<div id="splash">
+  <div class="splash-content">
+    <img src="https://i.ibb.co/5X83DpvP/1782896746577.png" class="splash-logo" alt="ASR Dress Makers logo">
+    <h1>ASR Dress Makers</h1>
+    <p>Premium Custom Tailoring Studio</p>
+  </div>
+</div>
+<header class="glass-header">
+  <div class="brand">
+    <img src="https://i.ibb.co/5X83DpvP/1782896746577.png" alt="ASR Logo" class="logo-img">
+    <div class="logo-text">ASR Dress Makers</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
+</header>
+
+<!-- HERO VIDEO / PREMIUM BACKDROP -->
+<section class="slider-container">
+
+  <div class="slide active slide-bridal">
+    <div class="slide-text">
+      <h1>Luxury Bridal Collection</h1>
+      <p>Designed for your perfect wedding look</p>
+    </div>
+  </div>
+
+  <div class="slide slide-maxi">
+    <div class="slide-text">
+      <h1>Elegant Maxi Dresses</h1>
+      <p>Comfort meets premium fashion</p>
+    </div>
+  </div>
+
+  <div class="slide slide-tailoring">
+    <div class="slide-text">
+      <h1>Designer Tailoring</h1>
+      <p>Custom stitched perfection for every woman</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- FLOATING STATS -->
+<section class="stats">
+  <div>✨ Premium Stitching</div>
+  <div>👗 Bridal Experts</div>
+  <div>🧵 Custom Designs</div>
+  <div>🚚 Fast Delivery</div>
+</section>
+
+<!-- FEATURE COLLECTION PREVIEW -->
+<section class="preview">
+  <h2>Featured Collections</h2>
+
+  <div class="preview-grid">
+
+    <div class="preview-card">
+      <img src="https://images.unsplash.com/photo-1520975954732-9b5f4d7b1b3a" alt="Bridal model in a lace gown posed in a softly lit studio environment">
+      <h3>Bridal Collection</h3>
+    </div>
+
+    <div class="preview-card">
+      <img src="https://images.unsplash.com/photo-1520975682031-a3a0c0d3c3b0" alt="Model in a flowing maxi dress standing against a bright boutique backdrop">
+      <h3>Maxi Dresses</h3>
+    </div>
+
+    <div class="preview-card">
+      <img src="https://images.unsplash.com/photo-1520975922284-7d7c1b0a6c1f" alt="Woman in a designer evening dress inside a refined fashion studio setting">
+      <h3>Designer Wear</h3>
+    </div>
+
+  </div>
+</section>
+
+<!-- LUXURY CTA -->
+<section class="cta-section">
+  <h2>Design Your Dream Outfit with ASR</h2>
+  <p>Every stitch tells your story</p>
+  <a href="products.html" class="btn-glow">Start Shopping</a>
+</section>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.querySelector(".cart span").innerText = cart.length;
+</script>
+<script>
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let el = document.getElementById("cartCount");
+  if (el) el.innerText = cart.length;
+}
+
+updateCartCount();
+</script>
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function showSlide() {
+  slides.forEach(slide => slide.classList.remove("active"));
+  slides[index].classList.add("active");
+}
+
+setInterval(() => {
+  index = (index + 1) % slides.length;
+  showSlide();
+}, 5000);
+</script>
+<div id="cartDrawer" class="cart-drawer">
+
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button onclick="toggleCart()">✖</button>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="cart-footer">
+    <h3 id="cartTotal">Total: ₹0</h3>
+    <button onclick="goCheckout()" class="btn-glow">
+      Checkout
+    </button>
+  </div>
+
+</div>
+
+<div id="overlay" onclick="toggleCart()"></div>
+
+</body>
+</html>
