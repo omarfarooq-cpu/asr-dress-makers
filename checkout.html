@@ -33,14 +33,42 @@
 
     <h2>Customer Details</h2>
 
-    <input type="text" id="name" placeholder="Full Name">
-    <input type="text" id="phone" placeholder="Phone Number">
-    <textarea id="address" placeholder="Full Address"></textarea>
+    <label for="name">Full Name</label>
+    <input type="text" id="name" placeholder="Full Name" title="Full Name">
 
-    <button onclick="placeOrder()" class="btn-glow">
-      Place Order
-    </button>
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" placeholder="Phone Number" title="Phone Number">
 
+    <label for="email">Email Address (Optional)</label>
+    <input type="email" id="email" placeholder="Email Address (Optional)" title="Email Address">
+
+    <label for="address">Full Address</label>
+    <textarea id="address" placeholder="Full Address" title="Full Address"></textarea>
+
+    <label for="appointmentDate">Preferred Appointment Date (Optional)</label>
+    <input type="date" id="appointmentDate" title="Appointment Date">
+<select id="paymentMethod" title="Payment Method">
+  <option value="" disabled selected>Select Payment Method</option>
+
+<option>Cash on Delivery</option>
+
+<option>UPI</option>
+
+<option>Cash at Store</option>
+
+</select>
+
+  <div class="checkout-buttons">
+
+  <button onclick="generateInvoice()" class="btn-glow">
+    📄 Download Invoice
+  </button>
+
+  <button onclick="placeOrder()" class="btn-glow">
+    📲 Place Order
+  </button>
+
+</div>
   </div>
 
 </section>
@@ -157,5 +185,7 @@ Please confirm my order.`;
 </div>
 
 <div id="overlay" onclick="toggleCart()"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="invoice.js"></script>
 </body>
 </html>

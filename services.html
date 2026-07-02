@@ -1,92 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-  <title>Tailoring Services | ASR Dress Makers</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Services | ASR Dress Makers</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="services.css">
+
 </head>
+
 <body>
 
-<!-- HEADER -->
 <header class="glass-header">
-  <div class="brand">
-    <img src="https://i.ibb.co/5X83DpvP/1782896746577.png" alt="ASR Logo" class="logo-img">
-    <div class="logo-text">ASR Dress Makers</div>
-  </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="services.html">Services</a>
-    <a href="cart.html">Cart</a>
-    <a href="admin.html">Admin</a>
-  </nav>
 
-  <div class="cart">🛒 <span id="cartCount">0</span></div>
+<div class="brand">
+<img src="https://i.ibb.co/5X83DpvP/1782896746577.png" class="logo-img" alt="ASR Dress Makers Logo">
+<div class="logo-text">ASR Dress Makers</div>
+</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="products.html">Shop</a>
+<a href="services.html" class="active">Services</a>
+<a href="cart.html">Cart</a>
+<a href="admin.html">Admin</a>
+</nav>
+
 </header>
+
 <!-- HERO -->
+
 <section class="service-hero">
-  <h1>Premium Tailoring Services</h1>
-  <p>Custom Stitching • Alterations • Bridal Fittings • Design Customization</p>
-</section>
 
-<!-- SERVICES GRID -->
-<section class="service-grid">
+<div class="hero-content">
 
-  <div class="service-card">
-    <h3>Custom Stitching</h3>
-    <p>Perfect fit tailoring based on your measurements.</p>
-    <button onclick="book('Custom Stitching')">Book Now</button>
-  </div>
+<h1>Luxury Tailoring Services</h1>
 
-  <div class="service-card">
-    <h3>Dress Alterations</h3>
-    <p>Resize and adjust your existing outfits.</p>
-    <button onclick="book('Dress Alterations')">Book Now</button>
-  </div>
+<p>
 
-  <div class="service-card">
-    <h3>Bridal Fittings</h3>
-    <p>Luxury bridal fitting and finishing service.</p>
-    <button onclick="book('Bridal Fittings')">Book Now</button>
-  </div>
+Premium stitching crafted with precision,
+style and elegance.
 
-  <div class="service-card">
-    <h3>Neck Design Customization</h3>
-    <p>Unique neckline designs for your outfits.</p>
-    <button onclick="book('Neck Design Customization')">Book Now</button>
-  </div>
+</p>
 
-  <div class="service-card">
-    <h3>Sleeve Design Customization</h3>
-    <p>Stylish sleeve pattern customization.</p>
-    <button onclick="book('Sleeve Design Customization')">Book Now</button>
-  </div>
+<a href="#booking" class="hero-btn">
+Book Now
+</a>
 
-  <div class="service-card">
-    <h3>Fabric Stitching</h3>
-    <p>We stitch your own fabric into premium outfits.</p>
-    <button onclick="book('Fabric Stitching')">Book Now</button>
-  </div>
+</div>
 
 </section>
 
-<script>
-function book(service) {
-  let msg = "Hello ASR Dress Makers,%0AI want to book this service:%0A" + service;
-  window.open("https://wa.me/917092840069?text=" + msg);
-}
-</script>
-<script>
-function updateCartCount() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let el = document.getElementById("cartCount");
-  if (el) el.innerText = cart.length;
-}
+<!-- SERVICES -->
 
-updateCartCount();
+<section class="services">
 
-</script>
+<h2 class="section-title">
+Our Premium Services
+</h2>
+
+<div class="service-grid">
+
+<div class="service-card">
+
+<div class="icon">👰</div>
+
+<h3>Bridal Stitching</h3>
+
+<p>
+
+Designer bridal gowns with premium finishing.
+
+</p>
+
+<span>Starting ₹4999</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">👗</div>
+
+<h3>Custom Dress Stitching</h3>
+
+<p>
+
+Maxis, Party Wear,
+Anarkali,
+Kaftan,
+Frocks.
+
+</p>
+
+<span>Starting ₹999</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">✂️</div>
+
+<h3>Alteration</h3>
+
+<p>
+
+Length adjustment
+
+Size correction
+
+Perfect fitting
+
+</p>
+
+<span>Starting ₹199</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">🧵</div>
+
+<h3>Embroidery</h3>
+
+<p>
+
+Stone Work
+
+Hand Work
+
+Lace Work
+
+Machine Work
+
+</p>
+
+<span>Custom Pricing</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">👧</div>
+
+<h3>Kids Wear</h3>
+
+<p>
+
+Premium stitching for children.
+
+</p>
+
+<span>Starting ₹699</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">📏</div>
+
+<h3>Measurements</h3>
+
+<p>
+
+Professional body measurements.
+
+</p>
+
+<span>Free with Order</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">🏠</div>
+
+<h3>Home Visit</h3>
+
+<p>
+
+Measurement at your doorstep.
+
+</p>
+
+<span>Selected Areas</span>
+
+</div>
+
+<div class="service-card">
+
+<div class="icon">🚚</div>
+
+<h3>Door Delivery</h3>
+
+<p>
+
+Safe & Fast Delivery.
+
+</p>
+
+<span>Available</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- WHY CHOOSE US -->
+
+<section class="why">
+
+<h2>
+
+Why Choose ASR?
+
+</h2>
+
+<div class="why-grid">
+
+<div>
+
+⭐
+
+<h3>Perfect Fitting</h3>
+
+</div>
+
+<div>
+
+🧵
+
+<h3>Premium Stitching</h3>
+
+</div>
+
+<div>
+
+🚚
+
+<h3>Fast Delivery</h3>
+
+</div>
+
+<div>
+
+❤️
+
+<h3>100% Satisfaction</h3>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BOOKING -->
+
+<section id="booking" class="booking">
+
+<h2>
+
+Book Your Service
+
+</h2>
+
+<form id="bookingForm">
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone Number"
+required>
+
+<select id="service" title="Select Service">
+
+<option>Bridal Stitching</option>
+
+<option>Custom Dress Stitching</option>
+
+<option>Alteration</option>
+
+<option>Embroidery</option>
+
+<option>Kids Wear</option>
+
+<option>Home Measurement</option>
+
+</select>
+
+<input
+type="date"
+id="date"
+title="Select Date">
+
+<input
+type="time"
+id="time"
+title="Select Time">
+
+<textarea
+id="requirements"
+rows="6"
+placeholder="Special Requirements"
+title="Enter Special Requirements"></textarea>
+
+<button
+type="button"
+onclick="bookWhatsApp()">
+
+Book Through WhatsApp
+
+</button>
+
+</form>
+
+</section>
+
+<script src="services.js"></script>
 
 </body>
 </html>

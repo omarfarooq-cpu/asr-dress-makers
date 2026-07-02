@@ -1015,3 +1015,20 @@ body {
 .card:hover h3 {
   color: #8e44ad;
 }
+.checkout-buttons{
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+}
+
+.checkout-buttons button{
+    flex:1;
+}
+
+@media(max-width:768px){
+
+.checkout-buttons{
+    flex-direction:column;
+}
+
+}
