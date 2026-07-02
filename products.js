@@ -1,34 +1,151 @@
+// ==========================================
+// ASR DRESS MAKERS - PRODUCTS PAGE
+// ==========================================
+
 const grid = document.getElementById("productGrid");
 
+// Load products
 function getProducts() {
-  return typeof baseProducts !== "undefined" ? baseProducts : [];
+    return typeof baseProducts !== "undefined" ? baseProducts : [];
 }
 
-// OPEN PRODUCT PAGE
+// Open Product Page
 function openProduct(id) {
-  window.location.href = "product.html?id=" + id;
+    window.location.href = "product.html?id=" + id;
 }
 
-// RENDER PRODUCTS
+// Render Products
 function render(products) {
-  grid.innerHTML = "";
 
-  products.forEach(p => {
-    grid.innerHTML += `
-      <div class="card" onclick="openProduct('${p.id}')">
-        <img src="${p.image}">
-        <h3>${p.name}</h3>
-        <p>${p.category}</p>
-        <p>₹${p.price}</p>
-      </div>
-    `;
-  });
+    grid.innerHTML = "";
+
+    if(products.length === 0){
+
+        grid.innerHTML = `
+            <h2 style="text-align:center;width:100%;">
+                No Products Found
+            </h2>
+        `;
+
+        return;
+    }
+
+    products.forEach(product => {
+
+        let discount = "";
+
+        if(product.oldPrice){
+
+            const off = Math.round(
+                ((product.oldPrice - product.price) /
+                product.oldPrice) * 100
+            );
+
+            discount = `<span class="discount">${off}% OFF</span>`;
+        }
+
+        grid.innerHTML += `
+
+        <div class="card">
+
+            <img
+                src="${product.images[0]}"
+                alt="${product.name}"
+                onclick="openProduct('${product.id}')">
+
+            <h3>${product.name}</h3>
+
+            <p>${product.category}</p>
+
+            <div class="price-box">
+
+                <span class="price">
+                    ₹${product.price}
+                </span>
+
+                ${
+                    product.oldPrice
+                    ?
+                    `<span class="old-price">
+                        ₹${product.oldPrice}
+                    </span>`
+                    :
+                    ""
+                }
+
+                ${discount}
+
+            </div>
+
+            <div class="rating">
+
+                ⭐ ${product.rating}
+
+                (${product.reviews})
+
+            </div>
+
+            <button
+                class="btn-glow"
+                onclick="openProduct('${product.id}')">
+
+                View Product
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
 }
 
-// LOAD ALL
-function load() {
-  render(getProducts());
+// Category Filter
+function filter(category){
+
+    if(category === "all"){
+
+        render(getProducts());
+
+        return;
+
+    }
+
+    const filtered = getProducts().filter(product =>
+        product.category === category
+    );
+
+    render(filtered);
+
 }
 
-// INIT
-load();
+// Load All Products
+render(getProducts());
+
+// Update Cart Count
+updateCartCount();
+
+function updateCartCount(){
+
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+    let total = 0;
+
+    cart.forEach(item=>{
+
+        total += item.qty || 1;
+
+    });
+
+    const count =
+        document.getElementById("cartCount");
+
+    if(count){
+
+        count.innerText = total;
+
+    }
+
+}
