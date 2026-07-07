@@ -20,7 +20,6 @@ if (!product) {
     container.innerHTML = `
         <div class="product-not-found">
             <h2>Product Not Found</h2>
-            <p>The product you're looking for does not exist.</p>
             <a href="products.html" class="btn-glow">
                 Back to Shop
             </a>
