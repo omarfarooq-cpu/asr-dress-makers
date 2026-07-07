@@ -1,206 +1,252 @@
-// ===============================
-// ASR DRESS MAKERS PRODUCT PAGE
-// ===============================
+// =========================================
+// ASR DRESS MAKERS - PRODUCT PAGE
+// =========================================
 
-// Get Product ID from URL
+// Get Product ID
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
-// Product Container
-const container = document.getElementById("productContainer");
-
-// Cart Count
-updateCartCount();
+// Products
+const products = typeof baseProducts !== "undefined" ? baseProducts : [];
 
 // Find Product
-const product = products.find(p => p.id == productId);
+const product = products.find(p => p.id === productId);
+
+// Containers
+const container = document.getElementById("productContainer");
+const relatedContainer = document.getElementById("relatedProducts");
+
+// Variables
+let quantity = 1;
+let selectedSize = "";
+
+// ===========================
+// Cart Count
+// ===========================
+
+updateCartCount();
+
+function updateCartCount() {
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let total = 0;
+
+    cart.forEach(item => total += item.qty || 1);
+
+    document.getElementById("cartCount").innerText = total;
+
+}
+
+// ===========================
+// Product Not Found
+// ===========================
 
 if (!product) {
 
     container.innerHTML = `
-        <div class="product-not-found">
+
+        <div style="text-align:center;padding:80px;">
+
             <h2>Product Not Found</h2>
-            <a href="products.html" class="btn-glow">
-                Back to Shop
+
+            <a href="products.html">
+
+                Back To Shop
+
             </a>
+
         </div>
+
     `;
 
 } else {
 
-    loadProduct(product);
+    loadProduct();
+
+    loadRelatedProducts();
 
 }
 
-// ===============================
-// LOAD PRODUCT
-// ===============================
+// ===========================
+// Load Product
+// ===========================
 
-function loadProduct(product){
+function loadProduct() {
 
-    let discount = 0;
-
-    if(product.oldPrice){
-        discount = Math.round(
-            ((product.oldPrice - product.price) /
-            product.oldPrice) * 100
-        );
-    }
+    const discount = product.oldPrice
+        ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
+        : 0;
 
     container.innerHTML = `
-    
-    <div class="product-left">
 
-        <img
-            id="mainImage"
-            class="main-image"
-            src="${product.images[0]}"
-            alt="${product.name}">
+<div class="product-wrapper">
 
-        <div class="thumbnail-row">
+<div class="product-left">
 
-            ${product.images.map(img => `
-                <img
-                    src="${img}"
-                    class="thumb"
-                    onclick="changeImage('${img}')">
-            `).join("")}
+<img
+id="mainImage"
+class="main-image"
+src="${product.images[0]}">
 
-        </div>
+<div class="thumbnail-row">
 
-    </div>
+${product.images.map(img=>`
 
-    <div class="product-right">
+<img
+src="${img}"
+class="thumb"
+onclick="changeImage('${img}')">
 
-        <h1>${product.name}</h1>
+`).join("")}
 
-        <div class="rating">
+</div>
 
-            ⭐ ${product.rating}
+</div>
 
-            (${product.reviews} Reviews)
+<div class="product-right">
 
-        </div>
+<h1>${product.name}</h1>
 
-        <div class="price-box">
+<div class="rating">
 
-            <span class="price">
-                ₹${product.price}
-            </span>
+⭐ ${product.rating}
 
-            ${
-                product.oldPrice
-                ?
-                `<span class="old-price">
-                    ₹${product.oldPrice}
-                </span>`
-                :
-                ""
-            }
+(${product.reviews} Reviews)
 
-            ${
-                discount
-                ?
-                `<span class="discount">
-                    ${discount}% OFF
-                </span>`
-                :
-                ""
-            }
+</div>
 
-        </div>
+<div class="price-box">
 
-        <p class="description">
+<span class="price">
 
-            ${product.description}
+₹${product.price}
 
-        </p>
+</span>
 
-        <h3>Select Size</h3>
+${
+product.oldPrice
+?
 
-        <div class="sizes">
+`<span class="old-price">
 
-            ${product.sizes.map(size => `
-                <button
-                    class="size-btn"
-                    onclick="selectSize(this,'${size}')">
+₹${product.oldPrice}
 
-                    ${size}
+</span>`
 
-                </button>
-            `).join("")}
+:
 
-        </div>
-
-        <h3>Quantity</h3>
-
-        <div class="qty-box">
-
-            <button onclick="changeQty(-1)">−</button>
-
-            <span id="qty">1</span>
-
-            <button onclick="changeQty(1)">+</button>
-
-        </div>
-
-        <p class="stock">
-
-            ✔ ${product.stock} Pieces Available
-
-        </p>
-
-        <div class="action-buttons">
-
-            <button
-                class="btn-glow"
-                onclick="addCurrentProduct()">
-
-                Add to Cart
-
-            </button>
-
-            <button
-                class="buy-btn"
-                onclick="buyNow()">
-
-                Buy Now
-
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
-
-}
-//====================================
-// GLOBAL VARIABLES
-//====================================
-
-let selectedSize = "";
-let quantity = 1;
-
-//====================================
-// CHANGE MAIN IMAGE
-//====================================
-
-function changeImage(image){
-
-    document.getElementById("mainImage").src = image;
+""
 
 }
 
-//====================================
-// SELECT SIZE
-//====================================
+${
+discount
+?
 
-function selectSize(button,size){
+`<span class="discount">
 
-    document
-        .querySelectorAll(".size-btn")
-        .forEach(btn=>btn.classList.remove("active"));
+${discount}% OFF
+
+</span>`
+
+:
+
+""
+
+}
+
+</div>
+
+<p>
+
+${product.description}
+
+</p>
+
+<h3>Select Size</h3>
+
+<div class="sizes">
+
+${product.sizes.map(size=>`
+
+<button
+class="size-btn"
+onclick="selectSize(this,'${size}')">
+
+${size}
+
+</button>
+
+`).join("")}
+
+</div>
+
+<h3>Quantity</h3>
+
+<div class="qty-box">
+
+<button onclick="changeQty(-1)">-</button>
+
+<span id="qty">1</span>
+
+<button onclick="changeQty(1)">+</button>
+
+</div>
+
+<p>
+
+Stock : ${product.stock}
+
+</p>
+
+<div class="action-buttons">
+
+<button
+class="btn-glow"
+onclick="addToCart()">
+
+Add To Cart
+
+</button>
+
+<button
+class="buy-btn"
+onclick="buyNow()">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+// ===========================
+// Change Image
+// ===========================
+
+function changeImage(src) {
+
+    document.getElementById("mainImage").src = src;
+
+}
+
+// ===========================
+// Select Size
+// ===========================
+
+function selectSize(button, size) {
+
+    document.querySelectorAll(".size-btn").forEach(btn =>
+        btn.classList.remove("active")
+    );
 
     button.classList.add("active");
 
@@ -208,31 +254,27 @@ function selectSize(button,size){
 
 }
 
-//====================================
-// CHANGE QUANTITY
-//====================================
+// ===========================
+// Quantity
+// ===========================
 
-function changeQty(value){
+function changeQty(value) {
 
     quantity += value;
 
-    if(quantity < 1){
-
-        quantity = 1;
-
-    }
+    if (quantity < 1) quantity = 1;
 
     document.getElementById("qty").innerText = quantity;
 
 }
 
-//====================================
-// ADD CURRENT PRODUCT
-//====================================
+// ===========================
+// Add To Cart
+// ===========================
 
-function addCurrentProduct(){
+function addToCart() {
 
-    if(product.sizes.length && selectedSize===""){
+    if (product.sizes.length && selectedSize === "") {
 
         alert("Please select a size.");
 
@@ -240,139 +282,99 @@ function addCurrentProduct(){
 
     }
 
-    let cart =
-        JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    let existing = cart.find(item=>
-
-        item.id===product.id &&
-
-        item.size===selectedSize
-
+    const existing = cart.find(item =>
+        item.id === product.id &&
+        item.size === selectedSize
     );
 
-    if(existing){
+    if (existing) {
 
         existing.qty += quantity;
 
-    }else{
+    } else {
 
         cart.push({
 
-            id:product.id,
+            id: product.id,
 
-            name:product.name,
+            name: product.name,
 
-            image:product.images[0],
+            image: product.images[0],
 
-            price:product.price,
+            price: product.price,
 
-            qty:quantity,
+            qty: quantity,
 
-            size:selectedSize
+            size: selectedSize
 
         });
 
     }
 
-    localStorage.setItem(
-
-        "cart",
-
-        JSON.stringify(cart)
-
-    );
+    localStorage.setItem("cart", JSON.stringify(cart));
 
     updateCartCount();
 
-    alert("Added to cart successfully.");
+    alert("Product Added Successfully");
 
 }
 
-//====================================
-// BUY NOW
-//====================================
+// ===========================
+// Buy Now
+// ===========================
 
-function buyNow(){
+function buyNow() {
 
-    addCurrentProduct();
+    addToCart();
 
-    window.location.href="cart.html";
-
-}
-
-//====================================
-// CART COUNT
-//====================================
-
-function updateCartCount(){
-
-    let cart =
-
-        JSON.parse(localStorage.getItem("cart")) || [];
-
-    let count = 0;
-
-    cart.forEach(item=>{
-
-        count += item.qty;
-
-    });
-
-    let cartCount = document.getElementById("cartCount");
-
-    if(cartCount){
-
-        cartCount.innerText = count;
-
-    }
+    window.location.href = "cart.html";
 
 }
 
-//====================================
-// RELATED PRODUCTS
-//====================================
+// ===========================
+// Related Products
+// ===========================
 
-loadRelatedProducts();
+function loadRelatedProducts() {
 
-function loadRelatedProducts(){
+    if (!relatedContainer) return;
 
-    const relatedBox =
-        document.getElementById("relatedProducts");
+    const related = products.filter(item =>
 
-    if(!relatedBox) return;
+        item.category === product.category &&
 
-    let related = products.filter(p=>
-
-        p.category===product.category &&
-
-        p.id!==product.id
+        item.id !== product.id
 
     );
 
-    related = related.slice(0,4);
+    relatedContainer.innerHTML = "";
 
-    relatedBox.innerHTML = related.map(item=>`
+    related.forEach(item => {
 
-        <div class="product-card">
+        relatedContainer.innerHTML += `
 
-            <img src="${item.images[0]}">
+<div class="card">
 
-            <h3>${item.name}</h3>
+<img src="${item.images[0]}">
 
-            <p>₹${item.price}</p>
+<h3>${item.name}</h3>
 
-            <button
-            class="btn-glow"
+<p>₹${item.price}</p>
 
-            onclick="location.href='product.html?id=${item.id}'">
+<button
+class="btn-glow"
+onclick="location.href='product.html?id=${item.id}'">
 
-            View Product
+View Product
 
-            </button>
+</button>
 
-        </div>
+</div>
 
-    `).join("");
+`;
+
+    });
 
 }

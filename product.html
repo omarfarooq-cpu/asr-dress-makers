@@ -2,58 +2,85 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Details | ASR Dress Makers</title>
 
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details | ASR Dress Makers</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 
 <header class="glass-header">
-  <div class="brand">
-    <img src="https://i.ibb.co/bgHMCs7x/logo-asr.png" alt="ASR Logo" class="logo-img">
-    <div class="logo-text">ASR Dress Makers</div>
-  </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="services.html">Services</a>
-    <a href="cart.html">Cart</a>
-    <a href="admin.html">Admin</a>
-  </nav>
 
-  <div class="cart">🛒 <span id="cartCount">0</span></div>
-</header>
-<!-- PRODUCT CONTAINER -->
-<!-- PRODUCT DETAILS -->
-<main class="product-page">
+    <div class="brand">
 
-    <div id="productContainer" class="product-wrapper">
-        <!-- Loaded dynamically -->
+        <img src="https://i.ibb.co/TqTTyWh9/1782989128253.png"
+             class="logo-img"
+             alt="ASR Dress Makers logo">
+
+        <h2>ASR Dress Makers</h2>
+
     </div>
 
-    <!-- RELATED PRODUCTS -->
+    <nav>
 
-    <section class="related-section">
+        <a href="index.html">Home</a>
 
-        <h2>You May Also Like</h2>
+        <a href="products.html">Shop</a>
 
-        <div id="relatedProducts" class="related-grid">
+        <a href="services.html">Services</a>
 
-        </div>
+        <a href="cart.html">
 
-    </section>
+            Cart (<span id="cartCount">0</span>)
+
+        </a>
+
+        <a href="admin.html">Admin</a>
+
+    </nav>
+
+</header>
+
+<!-- ================= PRODUCT ================= -->
+
+<main class="product-page">
+
+    <div id="productContainer">
+
+        <!-- Loaded from product.js -->
+
+    </div>
 
 </main>
-  <!-- Product will load here dynamically -->
-</div>
 
-<!-- SCRIPTS -->
+<!-- ================= RELATED ================= -->
+
+<section class="related-section">
+
+    <h2>You May Also Like</h2>
+
+    <div
+        id="relatedProducts"
+        class="grid">
+
+    </div>
+
+</section>
+
+<!-- ================= SCRIPTS ================= -->
 <script src="data.js"></script>
+
 <script src="product.js"></script>
 
 </body>
+
 </html>

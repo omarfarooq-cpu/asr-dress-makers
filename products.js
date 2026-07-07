@@ -1,27 +1,30 @@
-// ==========================================
+// =======================================
 // ASR DRESS MAKERS - PRODUCTS PAGE
-// ==========================================
+// =======================================
 
-const grid = document.getElementById("productGrid");
+// Product Grid
+const productGrid = document.getElementById("productGrid");
 
-// Load products
-function getProducts() {
-    return typeof baseProducts !== "undefined" ? baseProducts : [];
-}
+// Products
+const products = typeof baseProducts !== "undefined" ? baseProducts : [];
 
-// Open Product Page
+// ----------------------------
+// Open Product
+// ----------------------------
 function openProduct(id) {
-    window.location.href = "product.html?id=" + id;
+    window.location.assign("product.html?id=" + encodeURIComponent(id));
 }
 
+// ----------------------------
 // Render Products
-function render(products) {
+// ----------------------------
+function renderProducts(list) {
 
-    grid.innerHTML = "";
+    productGrid.innerHTML = "";
 
-    if(products.length === 0){
+    if (list.length === 0) {
 
-        grid.innerHTML = `
+        productGrid.innerHTML = `
             <h2 style="text-align:center;width:100%;">
                 No Products Found
             </h2>
@@ -30,28 +33,36 @@ function render(products) {
         return;
     }
 
-    products.forEach(product => {
+    list.forEach(product => {
 
-        let discount = "";
+        let image = "";
 
-        if(product.oldPrice){
-
-            const off = Math.round(
-                ((product.oldPrice - product.price) /
-                product.oldPrice) * 100
-            );
-
-            discount = `<span class="discount">${off}% OFF</span>`;
+        if (product.images && product.images.length > 0) {
+            image = product.images[0];
+        } else if (product.image) {
+            image = product.image;
         }
 
-        grid.innerHTML += `
+        let oldPrice = "";
+
+        if (product.oldPrice) {
+
+            oldPrice = `
+                <span class="old-price">
+                    ₹${product.oldPrice}
+                </span>
+            `;
+
+        }
+
+        productGrid.innerHTML += `
 
         <div class="card">
 
             <img
-                src="${product.images[0]}"
+                src="${image}"
                 alt="${product.name}"
-                onclick="openProduct('${product.id}')">
+            >
 
             <h3>${product.name}</h3>
 
@@ -63,31 +74,18 @@ function render(products) {
                     ₹${product.price}
                 </span>
 
-                ${
-                    product.oldPrice
-                    ?
-                    `<span class="old-price">
-                        ₹${product.oldPrice}
-                    </span>`
-                    :
-                    ""
-                }
-
-                ${discount}
+                ${oldPrice}
 
             </div>
 
-            <div class="rating">
-
+            <p>
                 ⭐ ${product.rating}
-
                 (${product.reviews})
-
-            </div>
+            </p>
 
             <button
-                class="btn-glow"
-                onclick="openProduct('${product.id}')">
+                class="btn-glow view-btn"
+                data-id="${product.id}">
 
                 View Product
 
@@ -99,41 +97,54 @@ function render(products) {
 
     });
 
+    // Attach Click Events AFTER rendering
+
+    document.querySelectorAll(".view-btn").forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            const id = this.dataset.id;
+
+            openProduct(id);
+
+        });
+
+    });
+
 }
 
+// ----------------------------
 // Category Filter
-function filter(category){
+// ----------------------------
+function filter(category) {
 
-    if(category === "all"){
+    if (category === "all") {
 
-        render(getProducts());
+        renderProducts(products);
 
         return;
 
     }
 
-    const filtered = getProducts().filter(product =>
+    const filtered = products.filter(product =>
         product.category === category
     );
 
-    render(filtered);
+    renderProducts(filtered);
 
 }
 
-// Load All Products
-render(getProducts());
+// ----------------------------
+// Cart Count
+// ----------------------------
+function updateCartCount() {
 
-// Update Cart Count
-updateCartCount();
-
-function updateCartCount(){
-
-    let cart =
+    const cart =
         JSON.parse(localStorage.getItem("cart")) || [];
 
     let total = 0;
 
-    cart.forEach(item=>{
+    cart.forEach(item => {
 
         total += item.qty || 1;
 
@@ -142,10 +153,17 @@ function updateCartCount(){
     const count =
         document.getElementById("cartCount");
 
-    if(count){
+    if (count) {
 
         count.innerText = total;
 
     }
 
 }
+
+// ----------------------------
+// Initial Load
+// ----------------------------
+renderProducts(products);
+
+updateCartCount();

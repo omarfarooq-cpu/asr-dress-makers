@@ -1,58 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-  <title>Shop | ASR Dress Makers</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .page-title { text-align: center; margin-top: 20px; }
-  </style>
+
+    <title>Shop | ASR Dress Makers</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header>
-  <img src="https://i.ibb.co/TqTTyWh9/1782989128253.png" alt="ASR Logo" class="logo-img">
-  <div class="logo">ASR Dress Makers</div>
+<header class="glass-header">
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="services.html">Services</a>
-    <a href="cart.html">Cart</a>
-    <a href="admin.html">Admin</a>
-  </nav>
+    <div class="brand">
+        <img src="https://i.ibb.co/TqTTyWh9/1782989128253.png"
+             class="logo-img" alt="ASR Dress Makers logo">
 
-  <div class="cart">
-    🛒 <span id="cartCount">0</span>
-  </div>
+        <h2>ASR Dress Makers</h2>
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="products.html">Shop</a>
+
+        <a href="services.html">Services</a>
+
+        <a href="cart.html">
+            Cart (<span id="cartCount">0</span>)
+        </a>
+
+
+    </nav>
 </header>
 
-<!-- CATEGORY FILTER BAR -->
-<nav class="filter-nav">
-  <button onclick="filter('all')">All</button>
-  <button onclick="filter('Bridal Collection')">Bridal</button>
-  <button onclick="filter('Maxis')">Maxis</button>
-  <button onclick="filter('Party Wear')">Party Wear</button>
-  <button onclick="filter('Kurtis')">Kurtis</button>
-  <button onclick="filter('Kids Wear')">Kids</button>
-</nav>
+<section class="filter-nav">
 
-<!-- TITLE -->
-<h2 class="page-title">Our Collection</h2>
+<button onclick="filterProducts('all')">All</button>
 
-<!-- PRODUCT GRID -->
-<section id="productGrid" class="grid"></section>
-<!-- SCRIPTS -->
+<button onclick="filterProducts('Bridal Collection')">
+Bridal
+</button>
 
-<script>
-  // cart count display
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document.getElementById("cartCount").innerText = cart.length;
-</script>
+<button onclick="filterProducts('Maxis')">
+Maxis
+</button>
+
+<button onclick="filterProducts('Party Wear')">
+Party Wear
+</button>
+
+<button onclick="filterProducts('Kurtis')">
+Kurtis
+</button>
+
+<button onclick="filterProducts('Kids Wear')">
+Kids
+</button>
+
+</section>
+
+<h1 class="page-title">
+Our Collection
+</h1>
+
+<section
+id="productGrid"
+class="grid">
+
+</section>
 
 <script src="data.js"></script>
+
 <script src="products.js"></script>
+
 </body>
+
 </html>
