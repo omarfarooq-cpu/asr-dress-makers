@@ -1,30 +1,27 @@
-// =======================================
+// ==========================================
 // ASR DRESS MAKERS - PRODUCTS PAGE
-// =======================================
+// ==========================================
 
-// Product Grid
-const productGrid = document.getElementById("productGrid");
+const grid = document.getElementById("productGrid");
 
-// Products
-const products = typeof baseProducts !== "undefined" ? baseProducts : [];
-
-// ----------------------------
-// Open Product
-// ----------------------------
-function openProduct(id) {
-    window.location.assign("product.html?id=" + encodeURIComponent(id));
+// Get Products
+function getProducts() {
+    return typeof baseProducts !== "undefined" ? baseProducts : [];
 }
 
-// ----------------------------
+// Open Product Page
+    function openProduct(id) {
+    alert("Opening: " + id);
+    window.location.href = `product.html?id=${id}`;
+}
+
 // Render Products
-// ----------------------------
-function renderProducts(list) {
+function render(products) {
 
-    productGrid.innerHTML = "";
+    grid.innerHTML = "";
 
-    if (list.length === 0) {
-
-        productGrid.innerHTML = `
+    if (products.length === 0) {
+        grid.innerHTML = `
             <h2 style="text-align:center;width:100%;">
                 No Products Found
             </h2>
@@ -33,36 +30,26 @@ function renderProducts(list) {
         return;
     }
 
-    list.forEach(product => {
+    products.forEach(product => {
 
-        let image = "";
-
-        if (product.images && product.images.length > 0) {
-            image = product.images[0];
-        } else if (product.image) {
-            image = product.image;
-        }
-
-        let oldPrice = "";
+        let discount = "";
 
         if (product.oldPrice) {
+            const off = Math.round(
+                ((product.oldPrice - product.price) / product.oldPrice) * 100
+            );
 
-            oldPrice = `
-                <span class="old-price">
-                    ₹${product.oldPrice}
-                </span>
-            `;
-
+            discount = `<span class="discount">${off}% OFF</span>`;
         }
 
-        productGrid.innerHTML += `
+        grid.innerHTML += `
 
         <div class="card">
 
             <img
-                src="${image}"
+                src="${product.images[0]}"
                 alt="${product.name}"
-            >
+                onclick="openProduct('${product.id}')">
 
             <h3>${product.name}</h3>
 
@@ -74,18 +61,27 @@ function renderProducts(list) {
                     ₹${product.price}
                 </span>
 
-                ${oldPrice}
+                ${
+                    product.oldPrice
+                    ? `<span class="old-price">₹${product.oldPrice}</span>`
+                    : ""
+                }
+
+                ${discount}
 
             </div>
 
-            <p>
+            <div class="rating">
+
                 ⭐ ${product.rating}
+
                 (${product.reviews})
-            </p>
+
+            </div>
 
             <button
-                class="btn-glow view-btn"
-                data-id="${product.id}">
+                class="btn-glow"
+                onclick="openProduct('${product.id}')">
 
                 View Product
 
@@ -96,74 +92,45 @@ function renderProducts(list) {
         `;
 
     });
-
-    // Attach Click Events AFTER rendering
-
-    document.querySelectorAll(".view-btn").forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            const id = this.dataset.id;
-
-            openProduct(id);
-
-        });
-
-    });
-
+    
 }
 
-// ----------------------------
 // Category Filter
-// ----------------------------
 function filter(category) {
 
     if (category === "all") {
-
-        renderProducts(products);
+        render(getProducts());
 
         return;
 
     }
 
-    const filtered = products.filter(product =>
+    const filtered = getProducts().filter(product =>
         product.category === category
     );
 
-    renderProducts(filtered);
+    render(filtered);
 
 }
-
-// ----------------------------
-// Cart Count
-// ----------------------------
+// Update Cart Count
 function updateCartCount() {
 
-    const cart =
-        JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     let total = 0;
 
     cart.forEach(item => {
-
         total += item.qty || 1;
 
     });
 
-    const count =
-        document.getElementById("cartCount");
+    const cartCount = document.getElementById("cartCount");
 
-    if (count) {
-
-        count.innerText = total;
-
+    if (cartCount) {
+        cartCount.innerText = total;
     }
-
 }
 
-// ----------------------------
 // Initial Load
-// ----------------------------
-renderProducts(products);
-
+render(getProducts());
 updateCartCount();

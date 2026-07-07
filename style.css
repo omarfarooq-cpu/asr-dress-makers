@@ -961,24 +961,28 @@ body {
   margin-top: auto;
   padding-top: 10px;
 }
-.card {
-  position: relative;
-  background: #fff;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
+.card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.25), transparent);
+    opacity:0;
+    transition:.3s;
+    pointer-events:none;
 }
 
+.card:hover::after{
+    opacity:1;
+}
+.btn-glow{
+    position:relative;
+    z-index:10;
+}
 /* IMAGE ZOOM EFFECT */
-.card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+.card img{
+    position:relative;
+    z-index:1;
 }
-
 /* HOVER LIFT EFFECT */
 .card:hover {
   transform: translateY(-10px);
@@ -1006,7 +1010,10 @@ body {
 .card:hover::after {
   opacity: 1;
 }
-
+.card{
+    position:relative;
+    overflow:hidden;
+}
 /* TEXT POP */
 .card h3, .card p {
   transition: 0.3s;
